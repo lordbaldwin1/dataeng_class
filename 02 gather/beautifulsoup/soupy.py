@@ -112,11 +112,31 @@ df7.head()
 
 df7.describe(include=[np.number])
 
+from pylab import rcParams
+rcParams['figure.figsize'] = 15, 5
 
 
+df7.boxplot(column='Runner_mins')
+plt.grid(True, axis='y')
+plt.ylabel('Chip Time')
+plt.xticks([1], ['Runners'])
 
+x = df7['Runner_mins']
+sns.displot(data=df7, x='Runner_mins', kind="hist", kde=True, color='magenta', bins=25, edgecolor='black')
+plt.show()
 
+plot_data = df7[df7[' Gender'].isin([' F', ' M'])]
+sns.displot(data=plot_data, x='Runner_mins', hue=' Gender', kind='kde', multiple='layer', 
+            fill=True, palette={' F': 'magenta', ' M': 'blue'}, common_norm=False)
+plt.title('Distribution of Runner Minutes by Gender')
+plt.xlabel('Runner Minutes')
+plt.ylabel('Density')
+plt.legend(title='Gender', labels=['Female', 'Male'])
+plt.show()
 
+g_stats = df7.groupby(" Gender", as_index=True).describe()
+print(g_stats)
 
-
-
+df7.boxplot(column='Runner_mins', by=' Gender')
+plt.ylabel('Chip Time')
+plt.suptitle("")

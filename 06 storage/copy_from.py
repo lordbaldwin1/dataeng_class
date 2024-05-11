@@ -12,12 +12,12 @@ def load_data(filepath, table_name, db_params):
             start_time = time.time() 
             cursor.copy_from(file, table_name, sep=',', null='')
             elapsed_time = time.time() - start_time
-            print(f"Data loaded successfully in {elapsed_time:.2f} seconds.")
+            print(f"data loaded in {elapsed_time:.2f} seconds.")
         
         conn.commit()
     except Exception as e:
         conn.rollback()
-        print(f"An error occurred: {e}")
+        print(f"error: {e}")
     finally:
         cursor.close()
         conn.close()
